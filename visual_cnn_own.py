@@ -29,4 +29,4 @@ model.fit(X_train,y_train,validation_split=0.2 ,epochs=epoch,batch_size=50)
 #2 loss: 0.3445 - acc: 0.8468
 #3 loss: 0.4183 - acc: 0.8058
 
-#Dla Doroty
+#Dla Doroty.
