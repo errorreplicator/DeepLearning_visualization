@@ -1,6 +1,5 @@
-# from tensorflow.contrib import keras
-from  models import kerasmodels
-
-model = kerasmodels.modelSeq1((50,50,1))
-
-print(model.summary())
+import datetime
+import time
+ts = time.time()
+st = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S')
+print(st)

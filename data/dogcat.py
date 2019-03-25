@@ -4,7 +4,7 @@ import random
 
 import matplotlib.pyplot as plt
 
-def load_data (input_size,resolution):
+def load_data (input_size=3000,resolution=50,test_data=True):
 
     path = 'C:\Dataset\img'
     catalogs = ['Dog','Cat']
@@ -29,13 +29,33 @@ def load_data (input_size,resolution):
             if index > input_size-1: break
     X_train = []
     y_train = []
+    X_test = []
+    y_test = []
 
     random.shuffle(catDog_list)
+    index=0
+    if test_data==True:
+        for x,y in catDog_list:
+            index+=1
+            if index%10!=0:
+                X_train.append(x)
+                y_train.append(y)
+            else: # every 10th sample is a test sample
+                X_test.append(x)
+                y_test.append(y)
 
-    for x,y in catDog_list:
-        X_train.append(x)
-        y_train.append(y)
-    print(f'size of {catalogs[0]} table:',len(X_train))
-    print(f'size of {catalogs[1]} table:',len(y_train))
+        print(f'size of {catalogs[0]} train table:',len(X_train))
+        print(f'size of {catalogs[1]} train table:',len(y_train))
+        print(f'size of {catalogs[0]} test table:', len(X_test))
+        print(f'size of {catalogs[1]} test table:', len(y_test))
 
-    return (X_train,y_train)
+        return (X_train, y_train,X_test,y_test)
+    else:
+
+        for x,y in catDog_list:
+            X_train.append(x)
+            y_train.append(y)
+        print(f'size of {catalogs[0]} table:',len(X_train))
+        print(f'size of {catalogs[1]} table:',len(y_train))
+
+        return (X_train,y_train)
