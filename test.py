@@ -1,5 +1,5 @@
-from models import kerasmodels
-import h5py
+from models import manipulation
 
-model = kerasmodels.loadModel('repo/testowy1.20190325205434.h5')
-print(model.summary())
+model = manipulation.loadModel('repo/testowy1.20190325205434.h5')
+
+manipulation.modelSummary(model)

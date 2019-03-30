@@ -1,15 +1,9 @@
 from tensorflow.contrib import keras
-import time
-import datetime
-from tensorflow.contrib.keras import models
+
 
 km = keras.models
 kl = keras.layers
 
-def retTime():
-    ts = time.time()
-    st = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S')
-    return st
 
 
 def modelSeq1(input_shape):
@@ -34,16 +28,3 @@ def modelSeq1(input_shape):
     model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
 
     return model
-
-def saveModelAll(model,filename):
-    model.save(f'repo/{filename}.{retTime()}.h5')
-
-def loadModel(path):
-    model = models.load_model(path)
-    return model
-
-def loadWeights(path):
-    pass
-
-def saveWeights(weights):
-    pass

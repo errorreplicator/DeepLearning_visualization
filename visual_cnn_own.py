@@ -1,4 +1,4 @@
-from models import kerasmodels
+from models import kerasmodels, manipulation
 from data import dogcat
 from tasking import general
 
@@ -6,20 +6,21 @@ resolution = 50
 epoch = 1
 input_size = 300
 
-X_train,y_train,x_test,y_test = dogcat.load_data(input_size,resolution)
-
-X_train = general.simple_reshape(X_train)
-x_test = general.simple_reshape(X_train)
-
-X_train = general.simple_norm(X_train)
-x_test = general.simple_reshape(x_test)
+# X_train,y_train,x_test,y_test = dogcat.load_data(input_size,resolution)
+# X_train = general.simple_reshape(X_train)
+# x_test = general.simple_reshape(X_train)
+# X_train = general.simple_norm(X_train)
+# x_test = general.simple_reshape(x_test)
 
 
-model = kerasmodels.modelSeq1(X_train.shape[1:])
+# model = kerasmodels.modelSeq1(X_train.shape[1:])
+model = kerasmodels.modelSeq1((50,50,1))
 
-
-model.fit(X_train,y_train,validation_split=0.2 ,epochs=epoch,batch_size=50)
-kerasmodels.saveModelAll(model,'testowy1')
+print(model)
+model.load_weights('repo/weights.h5')
+# model.fit(X_train,y_train,validation_split=0.2 ,epochs=epoch,batch_size=50)
+# model = manipulation.loadWeights(model,'repo/weights.h5')
+print(model)
 
 #1 /255 loss: 0.2324 - acc: 0.9078
 #2 /255 loss: 0.3290 - acc: 0.8525
