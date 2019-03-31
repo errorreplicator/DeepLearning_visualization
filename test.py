@@ -17,7 +17,32 @@ model_raw = kerasmodels.modelSeq1(shape)
 model_raw.load_weights('repo/CatDog1_w.h5')
 
 model_saved = manipulation.loadFileModel('repo/CatDog1.20190330194006.h5')
+X_test, y_test = dogcat.load_TestData(50)
+X_test = general.simple_reshape(X_test)
+X_test = general.simple_norm(X_test)
 
+predictions_m_trained = model_trained.predict(X_test)
+prediction_m_raw = model_raw.predict(X_test)
+predictions_m_saved = model_saved.predict(X_test)
+
+print(f'Number of test samples:{len(y_test)}',sep='\n')
+
+print('predictions_m_trained below', sep='\n')
+for x in predictions_m_trained:
+    print(x)
+print('')
+
+print('predictions_m_raw below',sep='\n')
+for y in prediction_m_raw:
+    print(y)
+print('')
+
+print('predictions_m_saved below',sep='\n')
+for z in predictions_m_saved:
+    print(z)
+print('')
+
+print(y_test)
 
 
 
