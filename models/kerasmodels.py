@@ -25,7 +25,7 @@ def modelSeq1(input_shape,classes):
     model.add(kl.Dense(classes))
     model.add(kl.Activation('sigmoid'))
 
-    model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
+    # model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
 
     return model
 
@@ -34,13 +34,13 @@ def modelLeNet(input_shape,classes): #LeNet model
     model =km.Sequential()
 
     # The first set of CONV => RELU => POOL layers
-    model.add(kl.Conv2D(128, (5, 5), padding="same",
+    model.add(kl.Conv2D(20, (5, 5), padding="same",
                      input_shape=input_shape))
     model.add(kl.Activation("relu"))
     model.add(kl.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
     # The second set of CONV => RELU => POOL layers
-    model.add(kl.Conv2D(256, (5, 5), padding="same"))
+    model.add(kl.Conv2D(50, (5, 5), padding="same",name='forVisual'))
     model.add(kl.Activation("relu"))
     model.add(kl.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
@@ -51,11 +51,11 @@ def modelLeNet(input_shape,classes): #LeNet model
 
     # The softmax classifier
     model.add(kl.Dense(classes))
-    model.add(kl.Activation("softmax"))
+    model.add(kl.Activation("sigmoid")) #SOFTMAX in original text
 
     # If a weights path is supplied, then load the weights
     # if weightsPath is not None:
     #     model.load_weights(weightsPath)
     opt = optimizers.SGD(lr=0.01)
-    model.compile(loss="binary_crossentropy", optimizer='Adam', metrics=["accuracy"])
+    model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
     return model
