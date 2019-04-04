@@ -1,30 +1,58 @@
 from models import manipulation, kerasmodels
 from data import dogcat
 from tasking import general
-
+from tensorflow.contrib.keras import backend as K
+import numpy as np
 resolution = 50
 epoch = 10
 input_size = 1
 shape = (resolution,resolution,1)
 
-X_train,y_train,X_test,y_test = dogcat.load_data(input_size=input_size,resolution=resolution,test_data=True)
 
+model = kerasmodels.modelLeNet(shape,1)
 
-# X_train = general.simple_reshape(X_train)
-# X_train = general.simple_norm(X_train)
+for _ in range(5):
+    model.pop()
 
-# model_trained = kerasmodels.modelSeq1(shape,classes=1)
-# model_trained.fit(X_train,y_train,batch_size=50,epochs=epoch,validation_split=0.2 )
-#
-# model_lenet = kerasmodels.modelLeNet(shape,classes=1)
-# model_lenet.fit(X_train,y_train,batch_size=50,epochs=epoch,validation_split=0.2)
+layer_name = 'forVisual'
+input_img = model.input
+layer_dict = dict([(layer.name, layer) for layer in model.layers[1:]])
+kept_filters = []
 
+layer_output = layer_dict[layer_name].output
+# print(layer_output) ### Tensor("forVisual/BiasAdd:0", shape=(?, 25, 25, 50), dtype=float32)
+filter_index = 0
+loss = K.mean(layer_output[:, :, :, filter_index])
+# print(loss) ###Tensor("Mean:0", shape=(), dtype=float32)
+# print(layer_output[:, :, :, filter_index]) ###Tensor("strided_slice_1:0", shape=(?, 25, 25), dtype=float32)
 
-#1 simple = loss: 0.3291 - acc: 0.8565
-#2 simple = loss: 0.1541 - acc: 0.9460
+def deprocess_image(x):
+    # normalize tensor: center on 0., ensure std is 0.1
+    x -= x.mean()
+    x /= (x.std() + 1e-5)
+    x *= 0.1
 
-#1 lenet =  loss: 0.2859 - acc: 0.8793
-#2 lenet =  loss: 0.3422 - acc: 0.8435
+    # clip to [0, 1]
+    x += 0.5
+    x = np.clip(x, 0, 1)
 
-# loss: 0.1384 - acc: 0.9493 -- Adam optimizer
-# loss: 0.6590 - acc: 0.6184 -- SGD optimizer
+    # convert to RGB array
+    x *= 255
+    if K.image_data_format() == 'channels_first':
+        x = x.transpose((1, 2, 0))
+    x = np.clip(x, 0, 255).astype('uint8')
+    return x
+def normalize(x):
+    return x / (K.sqrt(K.mean(K.square(x))) + 1e-5)
+# print(K.gradients(loss, input_img))
+grads = K.gradients(loss, input_img)[0]
+# print(grads)
+
+grads = normalize(grads)
+
+step = 1.
+
+input_img_data = np.random.random((1, resolution, resolution, 1))
+print(input_img_data.shape)
+input_img_data = (input_img_data - 0.5) * 20 + 128
+print(input_img_data.shape)

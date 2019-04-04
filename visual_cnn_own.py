@@ -4,7 +4,7 @@ from scipy.misc import imsave
 import numpy as np
 from tensorflow.contrib.keras import backend as K
 
-resolution = 50
+resolution = 28
 shape = (resolution,resolution,1)
 
 model = kerasmodels.modelLeNet(shape,1)
