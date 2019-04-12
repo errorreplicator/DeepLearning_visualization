@@ -60,8 +60,8 @@ def load_data (input_size=3000,resolution=50,test_data=True):
 
         return (X_train,y_train)
 
-def load_TestData (resolution):
-    path = 'C:\Dataset\img\Test'
+def load_general_patch (resolution,path):
+    path = path
     catalogs = ['Dog', 'Cat']
     resolution = resolution
     catDog_list = []

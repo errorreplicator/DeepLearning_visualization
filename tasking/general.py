@@ -28,3 +28,21 @@ def deprocess_image(x):
 # utility function to normalize a tensor by its L2 norm
 def normalize(x):
     return x / (K.sqrt(K.mean(K.square(x))) + 1e-5)
+
+def plots(ims, figsize=(12,6), rows=1, interp=False, titles=None,plot_title=None):
+    import matplotlib.pyplot as plt
+    if type(ims[0]) is np.ndarray:
+        ims = np.array(ims).astype(np.uint8)
+        # if (ims.shape[-1] != 3): # uncomment if RGB ???
+            # ims = ims.transpose((0,2,3,1))
+    f = plt.figure(figsize=figsize)
+    cols = len(ims)//rows if len(ims) % 2 == 0 else len(ims)//rows + 1
+    for i in range(len(ims)):
+        sp = f.add_subplot(rows, cols, i+1)
+        sp.axis('Off')
+        if titles is not None:
+            sp.set_title(titles[i], fontsize=16)
+        if plot_title is not None:
+            plt.suptitle(f'{plot_title}')
+        plt.imshow(ims[i], interpolation=None if interp else 'none',cmap='gray')
+    plt.show()

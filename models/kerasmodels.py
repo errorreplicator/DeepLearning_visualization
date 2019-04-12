@@ -14,7 +14,7 @@ def modelSeq1(input_shape,classes):
     model.add(kl.Activation('relu'))
     model.add(kl.MaxPool2D(pool_size=(2,2)))
 
-    model.add(kl.Conv2D(256,(3,3)))
+    model.add(kl.Conv2D(256,(3,3),name='forVisual'))
     model.add(kl.Activation('relu'))
     model.add(kl.MaxPool2D(2,2))
 
@@ -25,7 +25,7 @@ def modelSeq1(input_shape,classes):
     model.add(kl.Dense(classes))
     model.add(kl.Activation('sigmoid'))
 
-    # model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
 
     return model
 
@@ -57,5 +57,5 @@ def modelLeNet(input_shape,classes): #LeNet model
     # if weightsPath is not None:
     #     model.load_weights(weightsPath)
     opt = optimizers.SGD(lr=0.01)
-    model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+    model.compile(loss="binary_crossentropy", optimizer='Adam', metrics=["accuracy"])
     return model

@@ -1,5 +1,8 @@
+from keras.applications import vgg16
 
+model = vgg16.VGG16(include_top=True,weights=None)
 
+print(model.summary())
 
 
 
