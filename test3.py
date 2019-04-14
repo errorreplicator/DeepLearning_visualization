@@ -7,7 +7,7 @@ import pandas as pd
 
 display = 5
 
-X_test, y_test, filenames = dogcat.load_general_patch(resolution=100,path='C:/Dataset/img/Test',input_size=1000)
+X_test, y_test, filenames = dogcat.load_general_patch(resolution=100,path='C:/Dataset/img/Test',input_size=10)
 # general.plots(X_test[:5],titles=y_test[:5])
 
 X_test_reshape = general.simple_reshape(X_test,100)
@@ -18,18 +18,37 @@ predictions = model.predict(X_test_reshape)
 
 # print(test_data.shape)
 predictions = np.array(predictions).reshape(len(predictions), )
-print(filenames[:display])
-print(y_test[:display])
+print(filenames)
+print(y_test)
 
 ds = pd.DataFrame()
+ds['index'] = range(len(y_test))
 ds['filename'] = pd.Series(filenames)
 ds['y_test'] = pd.Series(y_test)
 ds['predictions'] = pd.Series(predictions)
-print(ds.iloc[:display,:])
-general.plots(X_test[:display], titles=predictions[:display])
+print(ds.dtypes)
+# print(ds.iloc[:display,:])
+# general.plots(X_test, titles=predictions,rows=5)
+
+# print(ds)
+##############################################
+#few most correct dogs
+# most_correct_dogs = dogcat.most_correct_dogs(ds)
+# tmp_list = []
+# for x in list(most_correct_dogs['index']):
+#     tmp_list.append(X_test[x])
+
+# print(most_correct_dogs)
+# general.plots(tmp_list[:display], titles=list(most_correct_dogs['predictions']))
+######################################################################################
+#few most correct cats
+# ds.sort_values[ds['predictions']](by=['Brand'], inplace=True, ascending=False)
+
+#just correct no sorting
+# ds.sort_values[ds['predictions']](by=['Brand'], inplace=True, ascending=False)
 
 #corrext size of Dog/Dog table print
-# add index to dataframe
+# round prediction of Keras
 # A few correct labels at random
 # A few incorrect labels at random
 # The most correct labels of each class (i.e. those with highest probability that are correct)

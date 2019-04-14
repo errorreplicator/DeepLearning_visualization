@@ -97,3 +97,15 @@ def load_general_patch (resolution,path,input_size=3000):
     print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
     return (X_test, y_test,filenames)
+
+def most_correct_dogs(ds):
+    dx = ds[(ds['predictions'] <= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=False)
+    return dx
+
+def most_uncertain_dogs(ds):
+    dx = ds[(ds['predictions'] >= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=True)
+    return list(dx['index'])
+
+def most_incorrect_dogs(ds):
+    dx = ds[(ds['predictions'] >= 0.5) & (ds['y_test'] == 1.0)].sort_values(by=['predictions'], ascending=True)
+    return list(dx['index'])
