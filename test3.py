@@ -1,24 +1,35 @@
 from models import kerasmodels
 from data import dogcat
 from tasking import general
-resolution = 100
-epoch = 10
-shape = (resolution,resolution,1)
+from tensorflow.contrib.keras import models
+import numpy as np
+import pandas as pd
 
+display = 5
 
-model = kerasmodels.modelSeq1(shape,1)
-X_train,y_train = dogcat.load_data(resolution=100,test_data=False)
-X_train = general.simple_reshape(X_train,100)
-X_train = general.simple_norm(X_train)
+X_test, y_test, filenames = dogcat.load_general_patch(resolution=100,path='C:/Dataset/img/Test',input_size=1000)
+# general.plots(X_test[:5],titles=y_test[:5])
 
-model.fit(X_train,y_train,batch_size=50,epochs=epoch)
+X_test_reshape = general.simple_reshape(X_test,100)
+X_test_reshape = general.simple_norm(X_test_reshape)
 
-model.save('repo/DogCat100.h5')
+model = models.load_model('repo/DogCat100.h5')
+predictions = model.predict(X_test_reshape)
 
-# load test data for prediction [image,real_class,filename]
-# Predict classes of an image
-# save prediction as [prediction,real class,filename]
-# write function to print
+# print(test_data.shape)
+predictions = np.array(predictions).reshape(len(predictions), )
+print(filenames[:display])
+print(y_test[:display])
+
+ds = pd.DataFrame()
+ds['filename'] = pd.Series(filenames)
+ds['y_test'] = pd.Series(y_test)
+ds['predictions'] = pd.Series(predictions)
+print(ds.iloc[:display,:])
+general.plots(X_test[:display], titles=predictions[:display])
+
+#corrext size of Dog/Dog table print
+# add index to dataframe
 # A few correct labels at random
 # A few incorrect labels at random
 # The most correct labels of each class (i.e. those with highest probability that are correct)

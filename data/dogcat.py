@@ -57,14 +57,16 @@ def load_data (input_size=3000,resolution=50,test_data=True):
             y_train.append(y)
         print(f'size of {catalogs[0]} table:',len(X_train))
         print(f'size of {catalogs[1]} table:',len(y_train))
+        print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
         return (X_train,y_train)
 
-def load_general_patch (resolution,path):
+def load_general_patch (resolution,path,input_size=3000):
     path = path
     catalogs = ['Dog', 'Cat']
     resolution = resolution
     catDog_list = []
+    input_size = input_size
 
     for folder in catalogs:
         index = 0
@@ -78,17 +80,20 @@ def load_general_patch (resolution,path):
                 pass
 
             image_resize = cv2.resize(grey, (resolution, resolution))
-            catDog_list.append([image_resize, catalogs.index(folder)])
+            catDog_list.append([image_resize, catalogs.index(folder),file])
             index += 1
-            # if index > input_size - 1: break
+            if index > input_size - 1: break
     X_test= []
     y_test = []
+    filenames=[]
 
     random.shuffle(catDog_list)
-    for x, y in catDog_list:
+    for x, y,z in catDog_list:
         X_test.append(x)
         y_test.append(y)
+        filenames.append(z)
     print(f'size of {catalogs[0]} table:', len(X_test))
     print(f'size of {catalogs[1]} table:', len(y_test))
+    print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
-    return (X_test, y_test)
+    return (X_test, y_test,filenames)
