@@ -55,8 +55,9 @@ def load_data (input_size=3000,resolution=50,test_data=True):
         for x,y in catDog_list:
             X_train.append(x)
             y_train.append(y)
-        print(f'size of {catalogs[0]} table:',len(X_train))
-        print(f'size of {catalogs[1]} table:',len(y_train))
+        print(f'size of {catalogs[0]} table:', y_test.count(0))
+        print(f'size of {catalogs[1]} table:', y_test.count(1))
+        print(f'Overall table size:', len(y_test))
         print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
         return (X_train,y_train)
@@ -92,35 +93,53 @@ def load_general_patch (resolution,path,input_size=3000):
         X_test.append(x)
         y_test.append(y)
         filenames.append(z)
-    print(f'size of {catalogs[0]} table:', len(X_test))
-    print(f'size of {catalogs[1]} table:', len(y_test))
+    print(f'size of {catalogs[0]} table:', y_test.count(0))
+    print(f'size of {catalogs[1]} table:', y_test.count(1))
+    print(f'Overall table size:', len(y_test))
     print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
     return (X_test, y_test,filenames)
 
-def most_correct_dogs(ds):
+def most_correct_dogs(ds,files=False):
     dx = ds[ds['y_test'] == 0.0].sort_values(by=['predictions'], ascending=True)
-    return dx['index'],list(round(dx['predictions'],4))
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
     #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
 
-def most_incorrect_dogs(ds):
+def most_incorrect_dogs(ds,files=False):
     dx = ds[ds['y_test'] == 0.0].sort_values(by=['predictions'], ascending=False)
-    return dx['index'],list(round(dx['predictions'],4))
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
     #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
 
-def most_uncertain_dogs(ds):
+def most_uncertain_dogs(ds,files=False):
     dx = ds[(ds['predictions'] <= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=False)
-    return dx['index'],list(round(dx['predictions'],4))
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
 
-def most_correct_cats(ds):
+def most_correct_cats(ds,files=False):
     dx = ds[ds['y_test'] == 1.0].sort_values(by=['predictions'], ascending=False)
-    return dx['index'],list(round(dx['predictions'],4))
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
 
-def most_incorrect_cats(ds):
+def most_incorrect_cats(ds,files=False):
     dx = ds[ds['y_test'] == 1.0].sort_values(by=['predictions'], ascending=True)
-    return dx['index'],list(round(dx['predictions'],4))
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
 
-def most_uncertain_cats(ds):
+def most_uncertain_cats(ds,files=False):
     dx = ds[(ds['predictions'] >= 0.5) & (ds['y_test'] == 1.0)].sort_values(by=['predictions'], ascending=True)
-    return dx['index'],list(round(dx['predictions'],4))
-    #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
+    if files:
+        return dx['index'],list(round(dx['predictions'],4)),dx['filename']
+    else:
+        return dx['index'], list(round(dx['predictions'], 4))
