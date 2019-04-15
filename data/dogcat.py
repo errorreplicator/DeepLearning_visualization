@@ -99,13 +99,28 @@ def load_general_patch (resolution,path,input_size=3000):
     return (X_test, y_test,filenames)
 
 def most_correct_dogs(ds):
-    dx = ds[(ds['predictions'] <= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=False)
-    return dx
-
-def most_uncertain_dogs(ds):
-    dx = ds[(ds['predictions'] >= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=True)
-    return list(dx['index'])
+    dx = ds[ds['y_test'] == 0.0].sort_values(by=['predictions'], ascending=True)
+    return dx['index'],list(round(dx['predictions'],4))
+    #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
 
 def most_incorrect_dogs(ds):
+    dx = ds[ds['y_test'] == 0.0].sort_values(by=['predictions'], ascending=False)
+    return dx['index'],list(round(dx['predictions'],4))
+    #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
+
+def most_uncertain_dogs(ds):
+    dx = ds[(ds['predictions'] <= 0.5) & (ds['y_test'] == 0.0)].sort_values(by=['predictions'], ascending=False)
+    return dx['index'],list(round(dx['predictions'],4))
+
+def most_correct_cats(ds):
+    dx = ds[ds['y_test'] == 1.0].sort_values(by=['predictions'], ascending=False)
+    return dx['index'],list(round(dx['predictions'],4))
+
+def most_incorrect_cats(ds):
+    dx = ds[ds['y_test'] == 1.0].sort_values(by=['predictions'], ascending=True)
+    return dx['index'],list(round(dx['predictions'],4))
+
+def most_uncertain_cats(ds):
     dx = ds[(ds['predictions'] >= 0.5) & (ds['y_test'] == 1.0)].sort_values(by=['predictions'], ascending=True)
-    return list(dx['index'])
+    return dx['index'],list(round(dx['predictions'],4))
+    #call it like this || general.plots([X_test[x] for x in indexes][:display],titles=predict[:display])
