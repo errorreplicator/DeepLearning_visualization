@@ -56,11 +56,3 @@ general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],pl
 ######################################################################################
 
 
-#corrext size of Dog/Dog table print
-# round prediction of Keras
-# A few correct labels at random
-# A few incorrect labels at random
-# The most correct labels of each class (i.e. those with highest probability that are correct)
-# The most incorrect labels of each class (i.e. those with highest probability that are incorrect)
-# The most uncertain labels (i.e. those with probability closest to 0.5).
-#
