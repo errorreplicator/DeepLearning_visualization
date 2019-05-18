@@ -1,27 +1,13 @@
-from keras.applications import vgg16
-
-# model = vgg16.VGG16(include_top=True,weights=None)
-
-# print(model.summary())
-
-lista = [4,6,1,9,2]
-
-lista2 = [n**2 for n in lista if n%2==0]
-
-print(lista2)
+import numpy as np
 
 
+y = [0,0,0,1]
+y_zwykle = np.array([0,0,0,1])
+y_reshape = np.array([0,0,0,1]).reshape(-1,1)
 
-
-
-
-
-
-
-
-
-
-
+print(len(y))
+print(y_zwykle.shape)
+print(y_reshape.shape)
 
 
 #-------------------INPUT SHAPE -------------------------------------#
