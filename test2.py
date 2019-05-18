@@ -1,11 +1,14 @@
 from keras.applications import vgg16
 
-model = vgg16.VGG16(include_top=True,weights=None)
+# model = vgg16.VGG16(include_top=True,weights=None)
 
-print(model.summary())
+# print(model.summary())
 
+lista = [4,6,1,9,2]
 
+lista2 = [n**2 for n in lista if n%2==0]
 
+print(lista2)
 
 
 
