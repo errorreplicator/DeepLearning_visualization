@@ -1,5 +1,5 @@
 from models import kerasmodels
-from data import dogcat
+from data import dataload
 from tasking import general
 from tensorflow.contrib.keras import models
 import numpy as np
@@ -7,7 +7,7 @@ import pandas as pd
 
 display = 5
 
-X_test, y_test, filenames = dogcat.load_general_patch(resolution=100,path='C:/Dataset/img/Test',input_size=10000)
+X_test, y_test, filenames = dataload.load_general_patch(resolution=100, path='C:/Dataset/img/Test', input_size=10000)
 
 X_test_reshape = general.simple_reshape(X_test,100)
 X_test_reshape = general.simple_norm(X_test_reshape)
@@ -46,7 +46,7 @@ ds['predictions'] = pd.Series(predictions)
 # general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most correct cats')
 ######################################################################################
 #few most incorrect cats
-indexes,predict,filename = dogcat.most_incorrect_cats(ds,files=True)
+indexes,predict,filename = dataload.most_incorrect_cats(ds, files=True)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most incorrect cats')
 ######################################################################################
 #few most uncertain cats

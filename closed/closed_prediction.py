@@ -1,12 +1,12 @@
 from models import manipulation, kerasmodels
-from data import dogcat
+from data import dataload
 from tasking import general
 
 resolution = 50
 epoch = 10
 input_size = 3000
 shape = (resolution,resolution,1)
-X_train,y_train,X_test,y_test = dogcat.load_data(input_size=input_size,resolution=resolution,test_data=True)
+X_train,y_train,X_test,y_test = dataload.load_data(input_size=input_size, resolution=resolution, test_data=True)
 X_train = general.simple_reshape(X_train)
 X_train = general.simple_norm(X_train)
 
@@ -18,7 +18,7 @@ model_raw.load_weights('repo/CatDog1_w.h5')
 
 model_saved = manipulation.loadFileModel('repo/CatDog1.20190330194006.h5')
 
-X_test, y_test = dogcat.load_TestData(50)
+X_test, y_test = dataload.load_TestData(50)
 X_test = general.simple_reshape(X_test)
 X_test = general.simple_norm(X_test)
 
@@ -67,7 +67,7 @@ print(y_test)
 
 ##############################PLOTTING THE PREDICTION DATA####################################################
 
-X_test, y_test, filenames = dogcat.load_general_patch(resolution=100,path='C:/Dataset/img/Test',input_size=10000)
+X_test, y_test, filenames = dataload.load_general_patch(resolution=100, path='C:/Dataset/img/Test', input_size=10000)
 
 X_test_reshape = general.simple_reshape(X_test,100)
 X_test_reshape = general.simple_norm(X_test_reshape)
@@ -87,30 +87,30 @@ ds['predictions'] = pd.Series(predictions)
 
 ######################################################################################
 #few most correct dogs
-indexes,predict = dogcat.most_correct_dogs(ds)
+indexes,predict = dataload.most_correct_dogs(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most correct dogs')
 ######################################################################################
 #few most incorrect dogs
-indexes,predict = dogcat.most_incorrect_dogs(ds)
+indexes,predict = dataload.most_incorrect_dogs(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most incorrect dogs')
 ######################################################################################
 #few most uncertain dogs
-indexes,predict = dogcat.most_uncertain_dogs(ds)
+indexes,predict = dataload.most_uncertain_dogs(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most uncertain dogs')
 #just correct no sorting
 ######################################################################################
 
 ######################################################################################
 #few most correct cats
-indexes,predict = dogcat.most_correct_cats(ds)
+indexes,predict = dataload.most_correct_cats(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most correct cats')
 ######################################################################################
 #few most incorrect cats
-indexes,predict = dogcat.most_incorrect_cats(ds)
+indexes,predict = dataload.most_incorrect_cats(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most incorrect cats')
 ######################################################################################
 #few most uncertain cats
-indexes,predict = dogcat.most_uncertain_cats(ds)
+indexes,predict = dataload.most_uncertain_cats(ds)
 general.plots([X_test[x] for x in indexes][:display],titles=predict[:display],plot_title='most uncertain cats')
 #just correct no sorting
 ######################################################################################

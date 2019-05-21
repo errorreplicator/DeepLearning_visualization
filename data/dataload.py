@@ -4,6 +4,10 @@ import random
 
 import matplotlib.pyplot as plt
 
+def dogbreeds(dataframe,input_size=3000,resolution=50,test_data=True):
+    PATH = 'C:/Dataset/dogbreeds/train/'
+
+
 def load_data (input_size=3000,resolution=50,test_data=True):
 
     path = 'C:\Dataset\img'
