@@ -24,7 +24,7 @@ def dogbreedsM(input_shape,classes):
     model.add(kl.Dense(classes))
     model.add(kl.Activation('softmax'))
 
-    model.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='rmsprop',loss='categorical_crossentropy',metrics=['accuracy'])
 
     return model
 

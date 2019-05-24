@@ -6,7 +6,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-def dogbreeds(input_size=3000,resolution=50,test_data=True):
+def dogbreedsD(input_size=3000,resolution=50,test_data=True):
     PATH = 'C:/Dataset/dogbreeds/'
     labels_file = pd.read_csv(f'{PATH}labels.csv')
 
@@ -36,15 +36,16 @@ def dogbreeds(input_size=3000,resolution=50,test_data=True):
     for idx, row in dataset.iterrows():
         try:
             image = cv2.imread(row['path'])  # ,cv2.IMREAD_GRAYSCALE)
-            grey = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+            # grey = cv2.cvtColor(image)#, cv2.COLOR_RGB2GRAY)
         except Exception as e:
             print(f'Error at file index {index} with path:', row['path'], sep='')
             pass
 
-        image_resize = cv2.resize(grey, (resolution, resolution))
+        image_resize = cv2.resize(image, (resolution, resolution))
         full_list.append([image_resize, row['vector']])
         index += 1
         if index > input_size: break
+        if index%500==0:print(index)
 
     random.shuffle(full_list)
     index = 0
@@ -61,7 +62,7 @@ def dogbreeds(input_size=3000,resolution=50,test_data=True):
         # print(f'Overall table size:', len(y_test))
         print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
-        return (X_train, y_train, X_test, y_test)
+        return (X_train, np.array(y_train), X_test, np.array(y_test))
 
     else:
 
@@ -71,7 +72,7 @@ def dogbreeds(input_size=3000,resolution=50,test_data=True):
         # print(f'Overall table size:', len(y_test))
         print('Please remember to normalize and reshape || simple_norm and simple_reshape')
 
-        return (X_train, y_train)
+        return (X_train, np.array(y_train))
 
 
 def load_data (input_size=3000,resolution=50,test_data=True):

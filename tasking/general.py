@@ -7,6 +7,9 @@ def simple_norm(x):
 def simple_reshape(x,resolution=50):
     return (np.array(x).reshape(-1, resolution, resolution, 1))
 
+def simple_reshape_color(x,resolution=50):
+    return (np.array(x).reshape(-1, resolution, resolution, 3))
+
 # util function to convert a tensor into a valid image
 def deprocess_image(x):
     # normalize tensor: center on 0., ensure std is 0.1
