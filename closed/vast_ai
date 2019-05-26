@@ -14,9 +14,6 @@ conda info --envs
 
 source activate gpu
 
-
-restart terminal
-
 conda install pandas numpy tensorflow-gpu keras opencv
 
 conda install ipykernel
@@ -37,4 +34,7 @@ ESC
 :q exit
 
 cd /home/dogbreeds
+
+kaggle competitions files dog-breed-identification
+kaggle competitions download dog-breed-identification
 

@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def dogbreedsD(input_size=3000,resolution=50,test_data=True):
-    PATH = 'C:/Dataset/dogbreeds/'
+    PATH = 'f:/Dataset/dogbreeds/'
     labels_file = pd.read_csv(f'{PATH}labels.csv')
 
     dataset = labels_file
@@ -35,7 +35,7 @@ def dogbreedsD(input_size=3000,resolution=50,test_data=True):
 
     for idx, row in dataset.iterrows():
         try:
-            image = cv2.imread(row['path'])  # ,cv2.IMREAD_GRAYSCALE)
+            image = cv2.imread(row['path'],cv2.IMREAD_GRAYSCALE)
             # grey = cv2.cvtColor(image)#, cv2.COLOR_RGB2GRAY)
         except Exception as e:
             print(f'Error at file index {index} with path:', row['path'], sep='')
