@@ -31,5 +31,5 @@ for layer in myModel.layers:
 myModel.add(Dense(120,activation='softmax'))
 
 myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
-myModel.fit(X_train,y_train,batch_size=8,epochs=10)
+myModel.fit(X_train,y_train,batch_size=16,epochs=10)
 

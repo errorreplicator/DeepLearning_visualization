@@ -1,0 +1,40 @@
+df -check disk space of an instance
+
+curl -O https://repo.continuum.io/miniconda/Miniconda2-4.6.14-Linux-x86_64.sh
+
+run:
+bash Miniconda2-4.6.14-Linux-x86_64.sh //to install miniconda
+
+//restart terminal to be able to use conda
+
+
+conda create -n gpu python=3.6
+
+conda info --envs
+
+source activate gpu
+
+
+restart terminal
+
+conda install pandas numpy tensorflow-gpu keras opencv
+
+conda install ipykernel
+
+python -m ipykernel install --user --name=gpu
+
+
+pip install kaggle
+
+apt-get install vim
+cd /root/.kaggle
+
+vim kaggle.json
+i
+{"username":"piotrjanusz","key":"dd7d61053b6d7f092a81ca0041e5258822"}
+ESC
+:w save
+:q exit
+
+cd /home/dogbreeds
+

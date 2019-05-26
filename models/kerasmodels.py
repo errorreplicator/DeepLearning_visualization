@@ -61,16 +61,19 @@ def modelLeNet(input_shape,classes): #LeNet model
                      input_shape=input_shape))
     model.add(kl.Activation("relu"))
     model.add(kl.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(kl.Dropout(0.2))
 
     # The second set of CONV => RELU => POOL layers
     model.add(kl.Conv2D(50, (5, 5), padding="same",name='forVisual'))
     model.add(kl.Activation("relu"))
     model.add(kl.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(kl.Dropout(0.2))
 
     # The set of FC => RELU layers
     model.add(kl.Flatten())
     model.add(kl.Dense(500))
     model.add(kl.Activation("relu"))
+    model.add(kl.Dropout(0.1))
 
     # The softmax classifier
     model.add(kl.Dense(classes))
