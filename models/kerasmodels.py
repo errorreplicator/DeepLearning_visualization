@@ -46,9 +46,9 @@ def modelSeq1(input_shape,classes):
     model.add(kl.Dense(64))
     model.add(kl.Activation('relu'))
     model.add(kl.Dense(classes))
-    model.add(kl.Activation('sigmoid'))
+    model.add(kl.Activation('softmax'))
 
-    model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
+    # model.compile(optimizer='Adam',loss='binary_crossentropy',metrics=['accuracy'])
 
     return model
 
