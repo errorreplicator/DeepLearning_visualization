@@ -27,5 +27,5 @@ c.NotebookApp.port = 8888
 
 save file
 
-(run) sudo ufw allow 8888
+(run ) sudo ufw allow 8888
 
