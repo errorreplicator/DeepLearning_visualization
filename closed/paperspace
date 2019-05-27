@@ -1,0 +1,31 @@
+https://by-the-water.github.io/posts/2017/05/16/setting-up-a-jupyter-notebook-server-on-paperspace.html
+
+(run)jupyter notebook --generate-config
+
+(run) jupyter notebook password
+[123]
+
+(run) mkdir cert
+(run) cd cert
+(run) openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out mycert.pem
+
+#GET has of the password from jupyter_notebook_config.py ## eg "sha1:ab02730f78b1:bfce8e586811a66f02cd36ec4acf408c34f00374"
+
+(edit) jupyter_notebook_config.py
+
+# Set options for certfile, ip, password, and toggle off
+# browser auto-opening
+c.NotebookApp.certfile = u'/home/paperspace/cert/mycert.pem'
+c.NotebookApp.keyfile = u'/home/paperspace/cert/mykey.key'
+# Set ip to '*' to bind on all interfaces (ips) for the public server
+c.NotebookApp.ip = '*'
+c.NotebookApp.password = "sha1:ab02730f78b1:bfce8e586811a66f02cd36ec4acf408c34f00374"
+c.NotebookApp.open_browser = False
+
+# It is a good idea to set a known, fixed port for server access
+c.NotebookApp.port = 8888
+
+save file
+
+(run) sudo ufw allow 8888
+
