@@ -29,3 +29,12 @@ save file
 
 (run ) sudo ufw allow 8888
 
+
+pip install kaggle
+mkdir /home/paperspace/.kaggle
+
+vi kaggle.json
+# past kaggle api {"username":"piotrjanusz","key":"dd7d61053b6d7f092a81ca0041e5258822"}
+
+kaggle competitions files dog-breed-identification
+kaggle competitions download dog-breed-identification
