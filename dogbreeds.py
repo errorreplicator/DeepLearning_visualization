@@ -22,22 +22,22 @@ X_train = general.simple_norm(X_train)
 
 
 
-# model = VGG16(weights='imagenet')#, include_top=False)
-# model.layers.pop()
-# myModel = keras.models.Sequential()
-#
-# for layer in model.layers:
-#     myModel.add(layer)
-#
-# for layer in myModel.layers:
-#     myModel.trainable = False
-#
-# myModel.add(keras.layers.Dense(120,activation='softmax'))
-#
-# myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
-#
-# myModel.fit(X_train,y_train,batch_size=16,epochs=10)
-#
-# myModel.fit(X_train,y_train,batch_size=16,epochs=30,validation_split=0.1)
+model = VGG16(weights='imagenet')#, include_top=False)
+model.layers.pop()
+myModel = keras.models.Sequential()
+
+for layer in model.layers:
+    myModel.add(layer)
+
+for layer in myModel.layers:
+    myModel.trainable = False
+
+myModel.add(keras.layers.Dense(120,activation='softmax'))
+
+myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
+
+myModel.fit(X_train,y_train,batch_size=16,epochs=10)
+
+myModel.fit(X_train,y_train,batch_size=16,epochs=30,validation_split=0.1)
 
 
