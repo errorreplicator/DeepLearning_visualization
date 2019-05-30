@@ -8,6 +8,7 @@ from keras.applications import VGG16
 from keras.layers import Dense
 # from keras import models
 import numpy as np
+from keras import optimizers
 
 X_train, y_train = dataload.dogbreedsD(10,resolution=224,test_data=False)
 print(np.array(X_train).shape)
@@ -34,7 +35,11 @@ for layer in myModel.layers:
 
 myModel.add(keras.layers.Dense(120,activation='softmax'))
 
-myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
+# myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
+
+myModel.compile(loss='binary_crossentropy',
+              optimizer=optimizers.SGD(lr=1e-3, momentum=0.9),
+              metrics=['accuracy']) #<- actually works with train data - -- momentum ??
 
 myModel.fit(X_train,y_train,batch_size=16,epochs=10)
 
