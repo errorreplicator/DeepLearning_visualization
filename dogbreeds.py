@@ -37,12 +37,18 @@ myModel.add(keras.layers.Dense(120,activation='softmax'))
 
 # myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
 
-myModel.compile(loss='binary_crossentropy',
-              optimizer=optimizers.SGD(lr=1e-3, momentum=0.9),
+myModel.compile(loss='categorical_crossentropy',
+              optimizer=optimizers.SGD(lr=1e-4, momentum=0.9),
               metrics=['accuracy']) #<- actually works with train data - -- momentum ??
+
+
+# loss: 0.0292 - acc: 0.9952 - val_loss: 1.9108 - val_acc: 0.6207 - top layer ON
+
+
 
 myModel.fit(X_train,y_train,batch_size=16,epochs=10)
 
 myModel.fit(X_train,y_train,batch_size=16,epochs=30,validation_split=0.1)
+
 
 
