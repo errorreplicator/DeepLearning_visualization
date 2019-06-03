@@ -10,7 +10,7 @@ kl = keras.layers
 
 
 def AlexNet(classnum):
-
+    #
     np.random.seed(1000)
     # Instantiate an empty model
     model = Sequential()
