@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 
+# myModel = multi_gpu_model(myModel,gpus=2) --- paralize computing
+# %config IPCompleter.greedy=True
+
 # pd.set_option('display.max_columns', None)
 # pd.set_option('display.expand_frame_repr', False)
 # pd.set_option('max_colwidth', -1)

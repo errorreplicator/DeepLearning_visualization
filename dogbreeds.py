@@ -89,3 +89,6 @@ myModel.fit(X_train,y_train,batch_size=16,epochs=30,validation_split=0.1)
 # 9199/9199 [=========] - 84s 9ms/step - loss: 0.2680 - acc: 0.9184 - val_loss: 1.3755 - val_acc: 0.6413
 # Epoch 5/5
 # 9199/9199 [=========] - 85s 9ms/step - loss: 0.2056 - acc: 0.9360 - val_loss: 1.4541 - val_acc: 0.6364
+
+# 20/30
+# 9199/9199 [=========] - 87s 9ms/step - loss: 0.0243 - acc: 0.9942 - val_loss: 2.0393 - val_acc: 0.6266

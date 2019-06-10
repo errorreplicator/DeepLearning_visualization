@@ -1,4 +1,5 @@
 # myModel = multi_gpu_model(myModel,gpus=2) --- paralize computing
+# %config IPCompleter.greedy=True
 # import pandas as pd
 from data import dataload
 from tasking import general
