@@ -9,14 +9,16 @@ km = keras.models
 kl = keras.layers
 
 
-def AlexNet(classnum):
+
+
+def AlexNet(input_shape,classnum):
     #
     np.random.seed(1000)
     # Instantiate an empty model
     model = Sequential()
 
     # 1st Convolutional Layer
-    model.add(Conv2D(filters=96, input_shape=(224, 224, 3), kernel_size=(11, 11), strides=(4, 4), padding='valid'))
+    model.add(Conv2D(filters=96, input_shape=input_shape, kernel_size=(11, 11), strides=(4, 4), padding='valid'))
     model.add(Activation('relu'))
     # Max Pooling
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding='valid'))
@@ -86,7 +88,7 @@ def dogbreedsM(input_shape,classes):
     model.add(kl.Dense(classes))
     model.add(kl.Activation('softmax'))
 
-    model.compile(optimizer='rmsprop',loss='categorical_crossentropy',metrics=['accuracy'])
+    # model.compile(optimizer='rmsprop',loss='categorical_crossentropy',metrics=['accuracy'])
 
     return model
 
@@ -144,6 +146,6 @@ def modelLeNet(input_shape,classes): #LeNet model
     # If a weights path is supplied, then load the weights
     # if weightsPath is not None:
     #     model.load_weights(weightsPath)
-    opt = optimizers.SGD(lr=0.01)
-    model.compile(loss="binary_crossentropy", optimizer='Adam', metrics=["accuracy"])
+    # opt = optimizers.SGD(lr=0.01)
+    # model.compile(loss="binary_crossentropy", optimizer='Adam', metrics=["accuracy"])
     return model

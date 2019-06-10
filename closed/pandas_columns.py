@@ -1,6 +1,23 @@
 import pandas as pd
 import numpy as np
 
+# pd.set_option('display.max_columns', None)
+# pd.set_option('display.expand_frame_repr', False)
+# pd.set_option('max_colwidth', -1)
+# pd.set_option('display.width', 1000)
+# pd.set_option('display.large_repr', 'truncate')
+# pd.set_option('display.max_columns', 0)
+
+pd.set_option('display.max_column',None)
+pd.set_option('display.max_rows',None)
+pd.set_option('display.max_seq_items',None)
+pd.set_option('display.max_colwidth', 500)
+pd.set_option('expand_frame_repr', True)
+############# 4 columns width #################
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_column',None)
+pd.set_option('display.max_colwidth', 500)
+###############################################
 # generate random dataset
 ds = pd.DataFrame(np.random.choice([0.9,4.1,'2ta',np.nan], size=(10,5)),columns=['fir','sec','thir','4th','5th'])
 ds =  np.zeros((3,3))

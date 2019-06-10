@@ -1,80 +1,46 @@
-
 import pandas as pd
-import numpy as np
+from keras import optimizers
+from keras.preprocessing import image
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_column',None)
+pd.set_option('display.max_colwidth', 500)
+from matplotlib import pyplot as plt
+from models import kerasmodels
 
-input_size = 3000
-resolution = 224
-test_data = True
 
+PATH = 'c:/dataset/dogbreeds'
 
-PATH = 'c:/Dataset/dogbreeds/'
-labels_file = pd.read_csv(f'{PATH}labels.csv')
-dataset = labels_file
-print(dataset.head())
-dataset['path'] = [f'{PATH}train/{x}.jpg' for x in dataset['id']]
-print(dataset.shape)
-print(dataset.head())
+ds = pd.read_csv(f'{PATH}/labels.csv')
+ds['files'] = [f'{x}.jpg' for x in ds['id']]
 
-# dataset3 = dataset.loc[]
+breeds_cound = ds.breed.value_counts(ascending=False)
 
-# breed_names = dataset['breed'].unique()
-#
-#
-# # dict1 = {y:x for y,x in enumerate(tmp)}
-# dict2 = {x: y for y, x in enumerate(breed_names)}
-#
-# dataset['bin_breeds'] = [dict2[x] for x in dataset['breed']]
-#
-# def get_vector(idx):
-#     zeroV = np.zeros((120,), dtype=int)
-#     zeroV[idx['bin_breeds']] = 1
-#     return zeroV
-#
-# dataset['vector'] = dataset.apply(get_vector, axis=1)
-# index = 0
-# full_list = []
-# X_train = []
-# y_train = []
-# X_test = []
-# y_test = []
-#
-# for idx, row in dataset.iterrows():
-#     try:
-#         image = cv2.imread(row['path'])#,cv2.IMREAD_GRAYSCALE)
-#         # grey = cv2.cvtColor(image)#, cv2.COLOR_RGB2GRAY)
-#     except Exception as e:
-#         print(f'Error at file index {index} with path:', row['path'], sep='')
-#         pass
-#
-#     image_resize = cv2.resize(image, (resolution, resolution))
-#     full_list.append([image_resize, row['vector']])
-#     index += 1
-#     if index > input_size: break
-#     if index%500==0:print(index)
-#
-# random.shuffle(full_list)
-# index = 0
-# if test_data == True:
-#     for x, y in full_list:
-#         index += 1
-#         if index % 10 != 0:
-#             X_train.append(x)
-#             y_train.append(y)
-#         else:  # every 10th sample is a test sample
-#             X_test.append(x)
-#             y_test.append(y)
-#
-#     # print(f'Overall table size:', len(y_test))
-#     print('Please remember to normalize and reshape || simple_norm and simple_reshape')
-#
-#     return (X_train, np.array(y_train), X_test, np.array(y_test))
-#
-# else:
-#
-#     for x, y in full_list:
-#         X_train.append(x)
-#         y_train.append(y)
-#     # print(f'Overall table size:', len(y_test))
-#     print('Please remember to normalize and reshape || simple_norm and simple_reshape')
-#
-#     return (X_train, np.array(y_train))
+# print(breeds_cound.sort_values(ascending=False))
+
+ds_small = ds.loc[ds.breed.isin(['scottish_deerhound', 'maltese_dog', 'afghan_hound'])]
+print(ds_small.head(10))
+print(ds_small.shape)
+# breeds_cound.plot(kind='bar')
+# plt.show()
+
+datagen = image.ImageDataGenerator(rescale=None,
+                                   shear_range=0.20,
+                                   zoom_range=0.20,
+                                   horizontal_flip=True,
+                                   vertical_flip=True)
+datapipe = datagen.flow_from_dataframe(ds,
+                                       directory=f'{PATH}/train/',
+                                       x_col='files',
+                                       y_col='breed',
+                                       target_size=(224,224),
+                                       batch_size=32,
+                                       color_mode='rgb',
+                                       class_mode='categorical')
+
+STEP_SIZE = datapipe.n//datapipe.batch_size
+
+myModel = kerasmodels.AlexNet((224,224,3),120)
+
+# myModel.compile(optimizer='Adam',loss='categorical_crossentropy',metrics=['accuracy'])
+myModel.compile(optimizer=optimizers.SGD(lr=1e-4, momentum=0.9),loss='categorical_crossentropy',metrics=['accuracy'])
+myModel.fit_generator(datapipe,steps_per_epoch=STEP_SIZE,epochs=10)
