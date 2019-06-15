@@ -1,42 +1,16 @@
-import numpy as np
+import keras
+from models import kerasmodels
+from keras.datasets import mnist
+from matplotlib import pyplot as plt
 
+(X_train,y_train),(x_test,y_test) = mnist.load_data()
 
-y = [0,0,0,1]
-y_zwykle = np.array([0,0,0,1])
-y_reshape = np.array([0,0,0,1]).reshape(-1,1)
+print(type(X_train))
+print(X_train.shape)
+print(y_train.shape)
+# print(y_train[:5])
+print(X_train[0].shape)
 
-print(len(y))
-print(y_zwykle.shape)
-print(y_reshape.shape)
-
-
-#-------------------INPUT SHAPE -------------------------------------#
-
-# from tensorflow.contrib.keras import models,layers
-# from tensorflow.contrib.keras import callbacks
-# from time import time
-# X_train = [0,1,2,3,4]
-# y_train = [0,2,4,6,8]
-# tensorboard = callbacks.TensorBoard(log_dir=f'C:/log/test.log')
-#
-# model = models.Sequential()
-#
-# model.add(layers.Dense(3,activation='relu',input_shape=(1,)))
-# # model.add(layers.Dense(3,activation='linear'))
-# model.add(layers.Dense(1,activation='linear'))
-
-
-# print(model.summary())
-# model.compile(optimizer='Adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'],)
-# model.fit(X_train,y_train,epochs=5)#,callbacks=[tensorboard])
-
-
-# predictivemodel = models.Sequential()
-# predictivemodel.add(layers.Dense(32, input_shape=(2,2,7)))#, W_regularizer=WeightRegularizer(l1=0.000001,l2=0.000001), init='normal'))
-# predictivemodel.add(layers.Dense(8))#, W_regularizer=WeightRegularizer(l1=0.000001,l2=0.000001), init='normal'))
-# predictivemodel.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
-#
-# 514*514+514= 264 710
-# 514*257+257= 132 355
-#
-# print(predictivemodel.summary())
+for x in range(10):
+    plt.imshow(X_train[x],cmap=plt.cm.binary)
+    plt.show()

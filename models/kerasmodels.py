@@ -8,9 +8,6 @@ import numpy as np
 km = keras.models
 kl = keras.layers
 
-
-
-
 def AlexNet(input_shape,classnum):
     #
     # np.random.seed(1000)
@@ -141,7 +138,7 @@ def modelLeNet(input_shape,classes): #LeNet model
 
     # The softmax classifier
     model.add(kl.Dense(classes))
-    model.add(kl.Activation("sigmoid")) #SOFTMAX in original text
+    model.add(kl.Activation("softmax")) #SOFTMAX in original text
 
     # If a weights path is supplied, then load the weights
     # if weightsPath is not None:
