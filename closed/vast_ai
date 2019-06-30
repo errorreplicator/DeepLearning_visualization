@@ -1,4 +1,7 @@
 df -check disk space of an instance
+df -m - Megabajts
+free -m Ram megabajts
+nvidia-smi - GPU
 
 curl -O https://repo.continuum.io/miniconda/Miniconda2-4.6.14-Linux-x86_64.sh
 
@@ -14,7 +17,7 @@ conda info --envs
 
 source activate gpu
 
-conda install pandas numpy tensorflow-gpu keras opencv
+conda install pandas numpy tensorflow-gpu keras opencv ipykernel
 
 conda install ipykernel
 

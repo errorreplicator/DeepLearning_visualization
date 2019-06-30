@@ -1,16 +1,8 @@
-import keras
-from models import kerasmodels
 from keras.datasets import mnist
-from matplotlib import pyplot as plt
+import numpy as np
+(Xtrain,ytrain),(Xtest,ytest)= mnist.load_data()
 
-(X_train,y_train),(x_test,y_test) = mnist.load_data()
+print(Xtrain[0].shape)
 
-print(type(X_train))
-print(X_train.shape)
-print(y_train.shape)
-# print(y_train[:5])
-print(X_train[0].shape)
-
-for x in range(10):
-    plt.imshow(X_train[x],cmap=plt.cm.binary)
-    plt.show()
+dump = Xtrain[0]
+np.savetxt('C:/PythonProj/processing/tabe.csv',dump,delimiter=',')
